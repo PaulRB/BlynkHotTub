@@ -25,11 +25,12 @@ WidgetLED solarLed(V4);
 WidgetLED boilerLed(V3);
 WidgetLED boostLed(V5);
 
-char auth[] = "xyz";
-char ssid[] = "ssid";
-char pass[] = "password";
+char auth[] = "23760e8fd45d4aca9fb6dd4cded92d24";
+char ssid[] = "granary";
+char pass[] = "sparkym00se";
 
 SimpleTimer timer;
+bool isFirstConnect = true;
 
 void checkTemps() {
 
@@ -67,6 +68,13 @@ void checkTemps() {
 
 }
 
+BLYNK_CONNECTED() {
+  if (isFirstConnect) {
+    Blynk.syncAll();
+    isFirstConnect = false;
+  }
+}
+
 BLYNK_WRITE(V0)
 {
   int pinValue = param.asInt();
@@ -85,6 +93,7 @@ BLYNK_WRITE(V6)
 
 void myTimerEvent()
 {
+
   Blynk.virtualWrite(V1, tempTub);
   Blynk.virtualWrite(V2, tempSolar);
   Blynk.virtualWrite(V6, boostOn);
@@ -113,4 +122,3 @@ void loop()
   Blynk.run();
   timer.run();
 }
-
