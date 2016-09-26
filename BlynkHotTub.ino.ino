@@ -25,9 +25,9 @@ WidgetLED solarLed(V4);
 WidgetLED boilerLed(V3);
 WidgetLED boostLed(V5);
 
-char auth[] = "23760e8fd45d4aca9fb6dd4cded92d24";
-char ssid[] = "granary";
-char pass[] = "sparkym00se";
+char auth[] = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
+char ssid[] = "zzzzzzz";
+char pass[] = "zzzzzzzzzz";
 
 SimpleTimer timer;
 bool isFirstConnect = true;
