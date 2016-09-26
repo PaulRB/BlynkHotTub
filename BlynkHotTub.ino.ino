@@ -9,8 +9,8 @@
 #define relayBoilerPin D7
 #define relayBoostPin D6
 #define ONE_WIRE_BUS D3
-#define TUB_TEMP_SENSOR 0
-#define PANEL_TEMP_SENSOR 1
+#define TUB_TEMP_SENSOR 1
+#define PANEL_TEMP_SENSOR 0
 
 int tempSolar = 0;
 int tempTub = 0;
@@ -34,8 +34,8 @@ bool isFirstConnect = true;
 
 void checkTemps() {
 
-  tempSolar = sensors.getTempCByIndex(0);
-  tempTub = sensors.getTempCByIndex(1);
+  tempSolar = sensors.getTempCByIndex(PANEL_TEMP_SENSOR);
+  tempTub = sensors.getTempCByIndex(TUB_TEMP_SENSOR);
   Serial.print("Tub=");
   Serial.print(tempTub);
   Serial.print(" panel=");
