@@ -43,29 +43,34 @@ void checkTemps() {
   Serial.print(" target=");
   Serial.print(tempTarget);
 
-  if (tempSolar > tempTub + 1)
-    solarOn = HIGH;
-  else if (tempSolar < tempTub - 1)
-    solarOn = LOW;
-
-  if (tempTub < tempTarget - 1)
-    boilerOn = HIGH;
-  else if (tempTub > tempTarget + 1) {
-    boilerOn = LOW;
-    boostOn = LOW;
+  if (tempSolar < -50 || tempTub < -50) {
+    ESP.restart();
   }
+  else {
 
-  digitalWrite(relaySolarPin, solarOn);
-  digitalWrite(relayBoilerPin, boilerOn);
-  digitalWrite(relayBoostPin, boostOn);
-  Serial.print(" solar=");
-  Serial.print(solarOn);
-  Serial.print(" boiler=");
-  Serial.print(boilerOn);
-  Serial.print(" boost=");
-  Serial.print(boostOn);
-  Serial.println();
+    if (tempSolar > tempTub + 5)
+      solarOn = HIGH;
+    else if (tempSolar < tempTub + 3)
+      solarOn = LOW;
 
+    if (tempTub < tempTarget - 1)
+      boilerOn = HIGH;
+    else if (tempTub > tempTarget + 1) {
+      boilerOn = LOW;
+      boostOn = LOW;
+    }
+
+    digitalWrite(relaySolarPin, solarOn);
+    digitalWrite(relayBoilerPin, boilerOn);
+    digitalWrite(relayBoostPin, boostOn);
+    Serial.print(" solar=");
+    Serial.print(solarOn);
+    Serial.print(" boiler=");
+    Serial.print(boilerOn);
+    Serial.print(" boost=");
+    Serial.print(boostOn);
+    Serial.println();
+  }
 }
 
 BLYNK_CONNECTED() {
@@ -100,7 +105,7 @@ void myTimerEvent()
   if (boostOn == HIGH) boostLed.on(); else boostLed.off();
   if (boilerOn == HIGH) boilerLed.on(); else boilerLed.off();
   if (solarOn == HIGH) solarLed.on(); else solarLed.off();
-  
+
 }
 
 void setup()
